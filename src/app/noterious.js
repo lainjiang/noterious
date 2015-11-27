@@ -17,15 +17,19 @@ angular.module('noterious', [
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-    ;
-
-    /* HINT: Add this to your boards route to force authentication
-     resolve: {
-       'currentUser': ['Auth', function (Auth) {
-        return Auth.$requireAuth();
-       }]
-     }
-     */
+      
+      .state('boards', {
+        url:'/boards',
+        templateUrl: 'app/boards/boards.tmpl.html',
+        controller: 'BoardsCtrl',
+        controllerAs: 'ctrl',
+        // added to force authentication
+        resolve: {
+          'currentUser': ['Auth', function (Auth) {
+          return Auth.$requireAuth();
+          }]
+        }
+      });
   })
   .run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
