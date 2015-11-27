@@ -44,7 +44,7 @@ angular.module('noterious')
     ctrl.createBoard = function (board, isValid) {
       if (isValid) {
         ctrl.loading = true;
-        // CREATE BOARD
+        ctrl.boards[12] = board;
         ctrl.resetForm();
       }
     };

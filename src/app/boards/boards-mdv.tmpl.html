@@ -4,8 +4,14 @@
       to ctrl.setEditedBoard via ng-click – that way, you will
       be able to actually see the editing form when you click on a board.
       -->
-    <div
+    <div 
+      ng-repeat="(boardId, board) in ctrl.boards" 
+      ng-click="ctrl.setEditedBoard(boardId, board)" 
       class="simple-board">
+        <div>{{ boardId }}</div>
+        <div>{{ board.title }}</div>
+        <div>{{ board.description }}</div>
+        <input type="checkbox" ng-model="model.isPublic"/> Is public?
     </div>
 
   </div>
@@ -19,7 +25,12 @@
       name="ctrl.createForm"
       class="create-form"
       role="form"
+      ng-submit="ctrl.createBoard(ctrl.newBoard, ctrl.createForm.$valid)"
       novalidate>
+        <input type="text" ng-model="ctrl.newBoard.title" required="true">
+        <input type="text" ng-model="ctrl.newBoard.description">
+        <input type="checkbox" ng-model="ctrl.newBoard.isPublic"> Is public?
+        <button type="submit">Create</button>
     </form>
   </div>
   <!-- EDITING -->
@@ -30,7 +41,13 @@
       name="ctrl.updateForm"
       class="edit-form"
       role="form"
+      ng-submit="updateBoard(ctrl.editedBoardId, ctrl.editedBoard, ctrl.updateForm.$valid)"
       novalidate>
+        <input type="text" ng-model="ctrl.editedBoard.title" required="true">
+        <input type="text" ng-model="ctrl.editedBoard.description">
+        <input type="checkbox" ng-model="ctrl.editedBoard.isPublic"> Is public?
+        <button type="submit">Update</button>
+        <button type="button" ng-click="ctrl.cancelEditing()">Cancel</button>
     </form>
   </div>
 </div>
